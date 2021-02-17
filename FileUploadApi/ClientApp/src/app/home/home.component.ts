@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   data: Student = {
-    name: "demo",
+    name: "",
+    age: "",
+    city: "",
     logo: null
   }
 
@@ -17,15 +19,25 @@ export class HomeComponent {
   }
 
   save(fileinput) {
-    // let form = new FormData();
-    // form.append('logo', fileinput.files[0]);
+    let form = new FormData();
     this.data.logo = fileinput.files[0];
-    this.http.post('https://localhost:44321/WeatherForecast', this.data).subscribe((data) => {
-      console.log(data);
+    // If logo is null that time also you can recieve request
+    Object.getOwnPropertyNames(this.data).forEach(p => form.append(p, this.data[p]));
+    this.http.post('https://localhost:44321/WeatherForecast/Save', form).subscribe((data) => {
+      alert(JSON.stringify(data));
+    });
+  }
+
+  saveWithoutFile() {
+    this.data.logo = null;
+    this.http.post('https://localhost:44321/WeatherForecast/SaveWithoutFile', this.data).subscribe((data) => {
+      alert(JSON.stringify(data));
     });
   }
 }
 interface Student {
   name: string,
+  age: string,
+  city: string,
   logo: File
 }

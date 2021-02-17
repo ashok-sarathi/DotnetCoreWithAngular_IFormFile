@@ -9,6 +9,8 @@ namespace FileUploadApi.Models
     public class Student
     {
         public string Name { get; set; }
+        public string Age { get; set; }
+        public string City { get; set; }
         public IFormFile Logo { get; set; }
     }
 }

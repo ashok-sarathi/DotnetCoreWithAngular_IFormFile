@@ -37,8 +37,16 @@ namespace FileUploadApi.Controllers
             .ToArray();
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public ActionResult Save([FromForm]Student student)
+        {
+            //Do Debugger befour this line, you can see fule instance on student variable
+            student.Logo = null;
+            return Ok(new { uploadStatus = "Success" ,  student });
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult SaveWithoutFile(Student student)
         {
             return Ok(student);
         }
